@@ -1,17 +1,17 @@
-<a href="https://hitscounter.dev/"><img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2FTasin5541%2Fportfolio&label=visitors&icon=github&color=%23198754"/></a>
+<a href="https://hitscounter.dev/"><img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2FAngelTLH%2Fgithubpages&label=visitors&icon=github&color=%23198754"/></a>
 
 Watch > All Activity - for getting notified of updates on this project.
 
 If this template helped you, leave a star and link to this repo on your website, so that the project can grow.
 
 <p align="center"> 
-    <a href="https://tasin5541.github.io" target="_blank">
+    <a href="https://AngelTLH.github.io" target="_blank">
     <img src="images/theme.gif" align="center"></img>
     </a>
 </p>
 
 # Demo
-To view a live demo, **[click here](https://tasin5541.github.io/)**
+To view a live demo, **[click here](https://AngelTLH.github.io/)**
 
 # Toggle Theme
 <p align="center"> 
@@ -20,15 +20,15 @@ To view a live demo, **[click here](https://tasin5541.github.io/)**
 
 # How to use
 
-- Remove `<meta http-equiv="refresh" content="0;url=https://tasin5541.github.io/" />` in the `index.html` file
+- Remove `<meta http-equiv="refresh" content="0;url=https://AngelTLH.github.io/" />` in the `index.html` file
 - You'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer 
 - Create a repository in github named username.github.io (your github username in place of username)
 - Open up cmd/powershell in admin mode and enter the following line to download this repository
 
   - ```python
-     git clone https://github.com/Tasin5541/portfolio.git
+     git clone https://github.com/AngelTLH/githubpages.git
     ```
-- Then go to `C:\Windows\System32\portfolio` in your File Explorer
+- Then go to `C:\Windows\System32\githubpages` in your File Explorer
 - Delete the `.git` file
 - Open `package.json` and add your repository name ("https://your_github_username.github.io") to the homepage section
 
@@ -59,11 +59,11 @@ If you open the file, you will see below component at the top of the file. You n
       githubUserName: "Your Github Username Here.",
     };
     ```
-- Navigate to `C:\Windows\System32\portfolio\src` and open the `portfolio.js` file to change your information. [Use https://icon-sets.iconify.design/skill-icons/ for changing the skill icons on the home page]
+- Navigate to `C:\Windows\System32\githubpages\src` and open the `githubpages.js` file to change your information. [Use https://icon-sets.iconify.design/skill-icons/ for changing the skill icons on the home page]
 - Type the following lines in cmd/powershell one by one and press enter after each line
  
   - ```python
-     cd portfolio
+     cd githubpages
      
      npm install
      
@@ -94,4 +94,4 @@ If you open the file, you will see below component at the top of the file. You n
 
 # References 👏🏻
 
-- Most of the Design and Implementation Ideas are taken from [Saad Pasta's Portfolio Project](https://github.com/saadpasta/developerFolio) and [ashutosh1919 masterPortfolio Project](https://github.com/ashutosh1919/masterPortfolio).
+- Most of the Design and Implementation Ideas are taken from [Saad Pasta's githubpages Project](https://github.com/saadpasta/developerFolio) and [ashutosh1919 mastergithubpages Project](https://github.com/ashutosh1919/mastergithubpages).
