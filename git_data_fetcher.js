@@ -1,9 +1,25 @@
 require('dotenv').config();
 
-const openSource = {
-  githubConvertedToken: process.env.REACT_APP_GITHUB_TOKEN,
-  githubUserName: "AngelTLH",
+
+// === GitHub token inject (drop-in, sin tocar el resto) ===
+const TOKEN = process.env.GITHUB_TOKEN || process.env.REACT_APP_GITHUB_TOKEN || "";
+const UA = "angeltlh-portfolio-build";
+
+const _origFetch = globalThis.fetch;
+globalThis.fetch = async (input, init = {}) => {
+  // merge headers sin pisar los que ya pasen explícitamente
+  const headers = { ...(init.headers || {}) };
+  const lower = Object.fromEntries(Object.entries(headers).map(([k, v]) => [String(k).toLowerCase(), v]));
+
+  if (!lower["user-agent"]) headers["User-Agent"] = UA;
+  if (TOKEN && !lower["authorization"]) headers["Authorization"] = `Bearer ${TOKEN}`;
+
+  return _origFetch(input, { ...init, headers });
 };
+// === fin parche ===
+
+const openSource = { githubUserName: "AngelTLH" }
+
 
 const fetch = require("node-fetch");
 var fs = require("fs");

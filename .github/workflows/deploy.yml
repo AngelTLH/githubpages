@@ -1,0 +1,50 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]   # <- cambia a "master" si tu repo usa master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      # Genera datos desde GitHub usando el token interno de Actions (no se expone al cliente)
+      - name: Generate GitHub data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node git_data_fetcher.js || echo "skip fetch"
+
+      - name: Build
+        env:
+          CI: false
+        run: npm run build
+
+      # Evita que Jekyll oculte carpetas que comienzan con "_"
+      - name: Add .nojekyll
+        run: touch build/.nojekyll
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages       # rama de despliegue
+          folder: build          # carpeta a publicar
+          clean: true
