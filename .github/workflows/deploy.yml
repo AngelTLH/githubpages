@@ -2,7 +2,7 @@ name: Build and Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]   # cámbialo a "master" si tu rama es master
+    branches: [ "main" ]   # cámbialo a "master" si tu rama se llama master
   workflow_dispatch:
 
 permissions:
@@ -28,7 +28,8 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Generate GitHub data (opcional)
+      # (Opcional) Genera datos desde GitHub con el token interno
+      - name: Generate GitHub data
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -38,6 +39,9 @@ jobs:
         env:
           CI: false
         run: npm run build
+
+      - name: SPA fallback (copy 404.html)
+        run: cp build/index.html build/404.html
 
       - name: Add .nojekyll
         run: touch build/.nojekyll
