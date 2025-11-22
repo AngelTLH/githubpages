@@ -2,7 +2,7 @@ require('dotenv').config();
 
 
 // === GitHub token inject (drop-in, sin tocar el resto) ===
-const TOKEN = process.env.GITHUB_TOKEN || process.env.REACT_APP_GITHUB_TOKEN || "";
+const TOKEN = process.env.GITHUB_TOKEN || "";
 const UA = "angeltlh-portfolio-build";
 
 const _origFetch = globalThis.fetch;

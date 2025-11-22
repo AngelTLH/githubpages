@@ -1,24 +1,26 @@
-name: Build and Deploy
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]   # <- cambia a "master" si tu repo usa master
+    branches: [ "main" ]   # cámbialo a "master" si tu rama es master
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
@@ -26,8 +28,7 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      # Genera datos desde GitHub usando el token interno de Actions (no se expone al cliente)
-      - name: Generate GitHub data
+      - name: Generate GitHub data (opcional)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -38,13 +39,20 @@ jobs:
           CI: false
         run: npm run build
 
-      # Evita que Jekyll oculte carpetas que comienzan con "_"
       - name: Add .nojekyll
         run: touch build/.nojekyll
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          branch: gh-pages       # rama de despliegue
-          folder: build          # carpeta a publicar
-          clean: true
+          path: ./build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
